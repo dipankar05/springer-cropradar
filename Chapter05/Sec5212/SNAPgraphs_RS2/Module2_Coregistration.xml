@@ -1,0 +1,106 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>F:\MRSLAB13PC_backup\Vijayawada_MF2019\RS2_2019\Springer_final_RS2Ch5\RS2-SLC-FQ15W-ASC-24-Jul-2019_12.45-PDS_07161980_Cal_Mat_Spk.dim</file>
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+  <node id="Read(2)">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>F:\MRSLAB13PC_backup\Vijayawada_MF2019\RS2_2019\Springer_final_RS2Ch5\RS2-SLC-FQ15W-ASC-28-Oct-2019_12.45-PDS_07498170_Cal_Mat_Spk.dim</file>
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+  <node id="CreateStack">
+    <operator>CreateStack</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+      <sourceProduct.1 refid="Read(2)"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <masterBands/>
+      <sourceBands/>
+      <resamplingType>NEAREST_NEIGHBOUR</resamplingType>
+      <extent>Master</extent>
+      <initialOffsetMethod>Product Geolocation</initialOffsetMethod>
+    </parameters>
+  </node>
+  <node id="Cross-Correlation">
+    <operator>Cross-Correlation</operator>
+    <sources>
+      <sourceProduct refid="CreateStack"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <numGCPtoGenerate>200</numGCPtoGenerate>
+      <coarseRegistrationWindowWidth>128</coarseRegistrationWindowWidth>
+      <coarseRegistrationWindowHeight>128</coarseRegistrationWindowHeight>
+      <rowInterpFactor>2</rowInterpFactor>
+      <columnInterpFactor>2</columnInterpFactor>
+      <maxIteration>10</maxIteration>
+      <gcpTolerance>0.5</gcpTolerance>
+      <applyFineRegistration>true</applyFineRegistration>
+      <inSAROptimized>true</inSAROptimized>
+      <fineRegistrationWindowWidth>32</fineRegistrationWindowWidth>
+      <fineRegistrationWindowHeight>32</fineRegistrationWindowHeight>
+      <fineRegistrationWindowAccAzimuth>16</fineRegistrationWindowAccAzimuth>
+      <fineRegistrationWindowAccRange>16</fineRegistrationWindowAccRange>
+      <fineRegistrationOversampling>16</fineRegistrationOversampling>
+      <coherenceWindowSize>3</coherenceWindowSize>
+      <coherenceThreshold>0.6</coherenceThreshold>
+      <useSlidingWindow>false</useSlidingWindow>
+      <computeOffset>false</computeOffset>
+      <onlyGCPsOnLand>false</onlyGCPsOnLand>
+    </parameters>
+  </node>
+  <node id="Warp">
+    <operator>Warp</operator>
+    <sources>
+      <sourceProduct refid="Cross-Correlation"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <rmsThreshold>0.05</rmsThreshold>
+      <warpPolynomialOrder>1</warpPolynomialOrder>
+      <interpolationMethod>Cubic convolution (6 points)</interpolationMethod>
+      <demRefinement>false</demRefinement>
+      <demName>SRTM 3Sec</demName>
+      <excludeMaster>false</excludeMaster>
+      <openResidualsFile>true</openResidualsFile>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Warp"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>F:\MRSLAB13PC_backup\Vijayawada_MF2019\RS2_2019\Springer_final_RS2Ch5\RS2-SLC-FQ15W-ASC-24-Jul-2019_12.45-PDS_07161980_Cal_Mat_Spk_Stack.dim</file>
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description/>
+    <node id="Read">
+            <displayPosition x="125.0" y="24.0"/>
+    </node>
+    <node id="Read(2)">
+      <displayPosition x="244.0" y="24.0"/>
+    </node>
+    <node id="CreateStack">
+      <displayPosition x="156.0" y="113.0"/>
+    </node>
+    <node id="Cross-Correlation">
+      <displayPosition x="139.0" y="178.0"/>
+    </node>
+    <node id="Warp">
+      <displayPosition x="165.0" y="246.0"/>
+    </node>
+    <node id="Write">
+            <displayPosition x="165.0" y="312.0"/>
+    </node>
+  </applicationData>
+</graph>

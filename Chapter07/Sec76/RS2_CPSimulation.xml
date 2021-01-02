@@ -1,0 +1,88 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>F:\MRSLAB13PC_backup\Vijayawada_MF2019\RS2_2019\RS2_OK106814_PK930271_DK875266_FQ15W_20190724_124514_HH_VV_HV_VH_SLC\product.xml</file>
+      <formatName>RADARSAT-2</formatName>
+    </parameters>
+  </node>
+  <node id="Calibration">
+    <operator>Calibration</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands/>
+      <auxFile>Latest Auxiliary File</auxFile>
+      <externalAuxFile/>
+      <outputImageInComplex>true</outputImageInComplex>
+      <outputImageScaleInDb>false</outputImageScaleInDb>
+      <createGammaBand>false</createGammaBand>
+      <createBetaBand>false</createBetaBand>
+      <selectedPolarisations/>
+      <outputSigmaBand>true</outputSigmaBand>
+      <outputGammaBand>false</outputGammaBand>
+      <outputBetaBand>false</outputBetaBand>
+    </parameters>
+  </node>
+  <node id="CP-Simulation">
+    <operator>CP-Simulation</operator>
+    <sources>
+      <sourceProduct refid="Calibration"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <compactMode>Right Circular Hybrid Mode</compactMode>
+      <outputFormat>Covariance Matrix C2</outputFormat>
+      <noisePower>-24.0</noisePower>
+      <simulateNoiseFloor>true</simulateNoiseFloor>
+    </parameters>
+  </node>
+  <node id="Polarimetric-Speckle-Filter">
+    <operator>Polarimetric-Speckle-Filter</operator>
+    <sources>
+      <sourceProduct refid="CP-Simulation"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <filter>Box Car Filter</filter>
+      <filterSize>5</filterSize>
+      <numLooksStr>1</numLooksStr>
+      <windowSize>7x7</windowSize>
+      <targetWindowSizeStr>3x3</targetWindowSizeStr>
+      <anSize>50</anSize>
+      <sigmaStr>0.9</sigmaStr>
+      <searchWindowSizeStr>15</searchWindowSizeStr>
+      <patchSizeStr>5</patchSizeStr>
+      <scaleSizeStr>1</scaleSizeStr>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Polarimetric-Speckle-Filter"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>F:\MRSLAB13PC_backup\Vijayawada_MF2019\RS2_2019\Springer_final_RS2Ch5\RS2-SLC-FQ15W-ASC-24-Jul-2019_12.45-PDS_07161980_Cal_SPSim_Spk.dim</file>
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description/>
+    <node id="Read">
+            <displayPosition x="80.0" y="26.0"/>
+    </node>
+    <node id="Calibration">
+      <displayPosition x="77.0" y="86.0"/>
+    </node>
+    <node id="CP-Simulation">
+      <displayPosition x="69.0" y="160.0"/>
+    </node>
+    <node id="Polarimetric-Speckle-Filter">
+      <displayPosition x="34.0" y="229.0"/>
+    </node>
+    <node id="Write">
+            <displayPosition x="83.0" y="300.0"/>
+    </node>
+  </applicationData>
+</graph>

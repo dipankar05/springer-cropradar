@@ -1,0 +1,79 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>$input1</file>
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+  <node id="Multilook">
+    <operator>Multilook</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands/>
+      <nRgLooks>1</nRgLooks>
+      <nAzLooks>4</nAzLooks>
+      <outputIntensity>false</outputIntensity>
+      <grSquarePixel>false</grSquarePixel>
+    </parameters>
+  </node>
+  <node id="Polarimetric-Speckle-Filter">
+    <operator>Polarimetric-Speckle-Filter</operator>
+    <sources>
+      <sourceProduct refid="Polarimetric-Matrices"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <filter>Refined Lee Filter</filter>
+      <filterSize>5</filterSize>
+      <numLooksStr>1</numLooksStr>
+      <windowSize>5x5</windowSize>
+      <targetWindowSizeStr>3x3</targetWindowSizeStr>
+      <anSize>50</anSize>
+      <sigmaStr>0.9</sigmaStr>
+      <searchWindowSizeStr>15</searchWindowSizeStr>
+      <patchSizeStr>5</patchSizeStr>
+      <scaleSizeStr>1</scaleSizeStr>
+    </parameters>
+  </node>
+  <node id="Polarimetric-Matrices">
+    <operator>Polarimetric-Matrices</operator>
+    <sources>
+      <sourceProduct refid="Multilook"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <matrix>C2</matrix>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Polarimetric-Speckle-Filter"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>$target1</file>
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description/>
+    <node id="Read">
+            <displayPosition x="178.0" y="7.0"/>
+    </node>
+    <node id="Multilook">
+      <displayPosition x="181.0" y="60.0"/>
+    </node>
+    <node id="Polarimetric-Speckle-Filter">
+      <displayPosition x="141.0" y="190.0"/>
+    </node>
+    <node id="Polarimetric-Matrices">
+      <displayPosition x="147.0" y="122.0"/>
+    </node>
+    <node id="Write">
+            <displayPosition x="191.0" y="262.0"/>
+    </node>
+  </applicationData>
+</graph>
