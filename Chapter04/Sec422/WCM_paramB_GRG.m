@@ -289,7 +289,7 @@ hold on
 grid on
 % legend('Circular disk','Needle/Cylinder','Location','northwest','Orientation','vertical');
 % legend boxoff;
-xlabel('Vegetation water content VWC, $(kg~m^{-3})$','Interpreter','latex');
+xlabel('Vegetation water content VWC, $(kg~m^{-2})$','Interpreter','latex');
 ylabel('$k_{e,VV}.h$','Interpreter','latex');
 loglog(vwc(:),Bfit,'k-','LineWidth',0.5)
 % % Set graph size
@@ -352,7 +352,7 @@ figure('DefaultAxesFontSize',14)
 loglog(vwc(:),abs(Bgrghh(:)),'o','MarkerEdgeColor','None','MarkerFaceColor',[0 0 1])
 hold on
 grid on
-xlabel('Vegetation water content VWC, $(kg~m^{-3})$','Interpreter','latex');
+xlabel('Vegetation water content VWC, $(kg~m^{-2})$','Interpreter','latex');
 ylabel('$k_{e,HH}.h$','Interpreter','latex');
 loglog(vwc(:),Bfit,'k-','LineWidth',0.5)
 % % Set graph size
