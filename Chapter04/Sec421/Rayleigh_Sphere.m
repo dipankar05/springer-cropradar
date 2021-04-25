@@ -227,7 +227,7 @@ loglog(vwc(:),abs(Agrghh(:)),'p','MarkerEdgeColor','None','MarkerFaceColor',[0 0
 hold on
 loglog(vwc3(:),abs(Agrghh3(:)),'o','MarkerEdgeColor','None','MarkerFaceColor',[0 1 0])
 loglog(vwc5(:),abs(Agrghh5(:)),'d','MarkerEdgeColor','None','MarkerFaceColor',[1 0 0])
-xlabel('Vegetation water content VWC, $(kg~m^{-3})$','Interpreter','latex');
+xlabel('Vegetation water content VWC, $(kg~m^{-2})$','Interpreter','latex');
 ylabel('$\sigma_{v,HH}/2k_{e,HH}$','Interpreter','latex');
 loglog(vwc(8,:)',Bfit,'k-','LineWidth',0.5)
 loglog(vwc3(8,:)',Bfit3,'k-','LineWidth',0.5)
@@ -323,7 +323,7 @@ loglog(vwc5(:),abs(Bgrghh5(:)),'d','MarkerEdgeColor','None','MarkerFaceColor',[1
 grid on
 % legend('Circular disk','Needle/Cylinder','Location','northwest','Orientation','vertical');
 % legend boxoff;
-xlabel('Vegetation water content VWC, $(kg~m^{-3})$','Interpreter','latex');
+xlabel('Vegetation water content VWC, $(kg~m^{-2})$','Interpreter','latex');
 ylabel('$k_{e,HH}.h$','Interpreter','latex');
 loglog(vwc(8,:)',Bfit,'k-','LineWidth',0.5)
 loglog(vwc3(8,:)',Bfit3,'k-','LineWidth',0.5)
